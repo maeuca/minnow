@@ -5,6 +5,10 @@ var http = require("http"),
     mime = require('mime-types'),
     url = require("url");
 
+/**
+ *
+ * @type {{start}}
+ */
 var MinnowServer = (function () {
 
     /**
@@ -42,6 +46,13 @@ var MinnowServer = (function () {
     }
 
     return {
+        /**
+         *
+         * @param webport
+         * @param route
+         * @param handler
+         * @param channels
+         */
         start: function (webport, route, handler, channels) {
             function onRequest(request, response) {
                 var pathname = url.parse(request.url).pathname;

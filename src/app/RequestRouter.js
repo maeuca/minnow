@@ -1,3 +1,7 @@
+/**
+ *
+ * @type {{route}}
+ */
 var RequestRouter = (function () {
 
     return {
