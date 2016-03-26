@@ -1,0 +1,16 @@
+{
+  "name": "Minnow",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url" : "https://github.com/maeuca/minnow.git"
+  },
+  "description": "A Functional Rest and Websocket Server using minimal dependencies",
+  "main": "main.js",
+  "dependencies": {
+    "socket.io": "1.4.5",
+    "mime-types": "2.1.10"
+  },
+  "author": "Mark Cantrell",
+  "license": "Artistic-2.0"
+}

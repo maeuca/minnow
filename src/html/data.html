@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data</title>
+    <script type="text/javascript" src="js/socket.io/socket.io.js"></script>
+
+    ﻿<script type="text/javascript">
+    var sessionsocket = io.connect('/session', {
+        secure:false,
+        'force new connection':false,
+        'reconnect':true
+    });
+
+    var datasocket = io.connect('/data', {
+        secure:false,
+        'force new connection':false,
+        'reconnect':true
+    });
+
+    sessionsocket.on('connect', function () {
+        console.log("session connected");
+        sessionsocket.emit('session-start',{userid:'54ee367279789b03192338af'});
+    });
+    datasocket.on('message', function (data) {
+        console.log("message received:" + JSON.stringify(data));
+    });
+
+    function sendData()
+    {
+        console.log('sending data');
+        datasocket.emit('data',{data:'bit'});
+    }
+    </script>
+</head>
+<body>
+
+<div>
+    <input type="button" onclick="sendData()" value="Send">
+</div>
+
+</body>
+</html>
