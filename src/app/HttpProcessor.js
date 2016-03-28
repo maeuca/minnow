@@ -10,7 +10,7 @@ var HttpProcessor = (function () {
          * @param request
          * @param callback
          */
-        getParameterMap: function (request, callback) {
+        getParameterMap: (request, callback) => {
             var parameterMap = {};
             if ( request.method == 'POST')  {
                 var postData = "";

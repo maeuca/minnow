@@ -1,21 +1,21 @@
-﻿var events = require('events'),
+﻿"use strict";
+
+var events = require('events'),
     util = require('util');
+
 
 /**
  * Allows internal objects and services to exchange messages.
  *
  * @constructor
  */
-var MessageBus = function() {
+class MessageBus extends events.EventEmitter{
 
-    this.emitMessage = function (eventName, eventData) {
+
+    emitMessage (eventName, eventData) {
         eventData.eventName = eventName;
-        self.emit( [eventName],eventData );
+        this.emit( [eventName],eventData );
     }
-
-
-    var self = this;
 };
 
-util.inherits(MessageBus, events.EventEmitter);
 module.exports = { newInstance:MessageBus }

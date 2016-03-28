@@ -16,7 +16,7 @@ var current_ndx = 0;
  *
  * @type {{save, delete, create, view, modify, display}}
  */
-var DataService = (function () {
+var DataService = (() => {
 
     /**
      *
@@ -24,7 +24,7 @@ var DataService = (function () {
      * @param sortby
      * @returns {Array.<T>}
      */
-    var configSort = function (configs, sortby) {
+    var configSort = (configs, sortby) => {
         console.log('configSort:' + sortby);
         function compare(a, b) {
             a = a[sortby];
@@ -48,8 +48,8 @@ var DataService = (function () {
      * @param configname
      * @param callback
      */
-    var getConfig = function (configname, callback) {
-        fs.readFile("../etc/configurations", function (err, data) {
+    var getConfig = (configname, callback) => {
+        fs.readFile("../etc/configurations", (err, data) => {
 
             if (data === undefined) {
                 callback(null);
@@ -82,8 +82,8 @@ var DataService = (function () {
      * @param configdata
      * @param callback
      */
-    var updateConfig = function (configdata, callback) {
-        fs.readFile("../etc/configurations", function (err, data) {
+    var updateConfig = (configdata, callback) => {
+        fs.readFile("../etc/configurations", (err, data) => {
 
             if (data === undefined) {
                 callback(null);
@@ -109,7 +109,7 @@ var DataService = (function () {
                         configs.configurations.splice(removeIndex, 1);
                     }
                     configs.configurations.push(configdata);
-                    fs.writeFile("../etc/configurations", JSON.stringify(configs), function (err) {
+                    fs.writeFile("../etc/configurations", JSON.stringify(configs), (err) => {
                         if (err) {
                             console.log(err);
                             callback(null);
@@ -128,8 +128,8 @@ var DataService = (function () {
      * @param configdata
      * @param callback
      */
-    var deleteConfig = function (configdata, callback) {
-        fs.readFile("../etc/configurations", function (err, data) {
+    var deleteConfig = (configdata, callback) => {
+        fs.readFile("../etc/configurations",  (err, data) => {
 
             if (data === undefined) {
                 callback(null);
@@ -155,7 +155,7 @@ var DataService = (function () {
                         configs.configurations.splice(removeIndex, 1);
                     }
 
-                    fs.writeFile("../etc/configurations", JSON.stringify(configs), function (err) {
+                    fs.writeFile("../etc/configurations", JSON.stringify(configs), (err) => {
                         if (err) {
                             console.log(err);
                             callback(null);
@@ -173,8 +173,8 @@ var DataService = (function () {
      *
      * @param callback
      */
-    var loadConfigs = function (callback) {
-        fs.readFile("../etc/configurations", function (err, data) {
+    var loadConfigs = (callback) => {
+        fs.readFile("../etc/configurations", (err, data) => {
 
             if (data === undefined) {
                 callback(null);
@@ -195,8 +195,8 @@ var DataService = (function () {
 
     }
     return {
-        save: function (request, response) {
-            httpprocessor.getParameterMap(request, function (pmap) {
+        save: (request, response) => {
+            httpprocessor.getParameterMap(request, (pmap)=>  {
                 console.log('ConfigService save start');
 
 
@@ -209,7 +209,7 @@ var DataService = (function () {
 
                 console.log('save config for ' + configdata.name + '/' + configdata.port + '/' + configdata.username + '/' + configdata.hostname);
 
-                updateConfig(configdata, function () {
+                updateConfig(configdata,  () => {
                     response.writeHead(200, {"Content-Type": "text/html"});
                     response.write('save completed ... <a href="/display">Return</a>');
                     response.end();
@@ -219,12 +219,12 @@ var DataService = (function () {
 
 
         },
-        delete: function (request, response) {
-            httpprocessor.getParameterMap(request, function (pmap) {
+        delete: (request, response) => {
+            httpprocessor.getParameterMap(request,  (pmap) => {
                 response.writeHead(200, {"Content-Type": "text/html"});
                 console.log('delete ' + pmap.host);
-                var config = getConfig(pmap.host, function (config) {
-                    deleteConfig(config, function () {
+                var config = getConfig(pmap.host, (config) => {
+                    deleteConfig(config,  () => {
 
                         console.log('delete completed');
                         response.write('delete completed ... <a href="/display">Return</a>');
@@ -234,7 +234,7 @@ var DataService = (function () {
             });
 
         },
-        create: function (request, response) {
+        create: (request, response) => {
             response.writeHead(200, {"Content-Type": "text/html"});
             var formhtml = 'Create New Host Entry<hr><form action="/save" method="post">';
             formhtml += '<Div>Hostname:<input type="text" name="hostname" maxlength="40" length="25" value=""></Div>';
@@ -246,10 +246,10 @@ var DataService = (function () {
             response.write(formhtml);
             response.end();
         },
-        view: function (request, response) {
-            httpprocessor.getParameterMap(request, function (pmap) {
+        view: (request, response) => {
+            httpprocessor.getParameterMap(request, (pmap) => {
                 response.writeHead(200, {"Content-Type": "text/html"});
-                var config = getConfig(pmap.host, function (config) {
+                var config = getConfig(pmap.host,(config) => {
                     var formhtml = 'Modify -- ' + pmap.host + '<hr><form action="/modify" method="post">';
                     formhtml += '<Div>Hostname:<input type="text" name="hostname" maxlength="40" length="25" value="' + config.hostname + '"></Div>';
                     formhtml += '<Div>Username:<input type="text" name="username" maxlength="40" length="25" value="' + config.username + '"></Div>';
@@ -265,8 +265,8 @@ var DataService = (function () {
 
 
         },
-        modify: function (request, response) {
-            httpprocessor.getParameterMap(request, function (pmap) {
+        modify: (request, response) => {
+            httpprocessor.getParameterMap(request, (pmap) =>  {
                 console.log(JSON.stringify(pmap));
                 var configdata = {};
                 configdata.username = pmap.username;
@@ -274,7 +274,7 @@ var DataService = (function () {
                 configdata.port = pmap.port;
                 configdata.name = pmap.host;
                 console.log('modify config for ' + configdata.name + '/' + configdata.port + '/' + configdata.username + '/' + configdata.hostname);
-                updateConfig(configdata, function () {
+                updateConfig(configdata, () => {
 
                     response.writeHead(200, {"Content-Type": "text/html"});
                     response.write(navbarhtml);
@@ -284,8 +284,8 @@ var DataService = (function () {
             })
 
         },
-        display: function (request, response) {
-            httpprocessor.getParameterMap(request, function (pmap) {
+        display: (request, response) =>  {
+            httpprocessor.getParameterMap(request, (pmap) => {
                 console.log('pmap=' + JSON.stringify(pmap));
 
                 var sortby = pmap.sort;// name, hostname, port, username
@@ -303,7 +303,7 @@ var DataService = (function () {
                 response.writeHead(200, {"Content-Type": "text/html"});
                 response.write(navbarhtml);
 
-                loadConfigs(function (configurations) {
+                loadConfigs((configurations) => {
                     if (configurations === null) {
                         response.write('no configurations have been defined');
                         response.end();

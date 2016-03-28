@@ -6,20 +6,20 @@ var fs = require("fs"),
  *
  * @type {{isauthorized, authenticate, register, invalidate}}
  */
-var AuthService = (function () {
+var AuthService = ( () =>  {
 
 
-    this.passwordDB = {};
-    this.sessionDB = {};
+    var passwordDB = {};
+    var sessionDB  = {};
 
     /**
      *
      * @returns {string}
      */
-    var getUuid = function(){
+    var getUuid = () => {
         var d = new Date().getTime();
 
-        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
             var r = (d + Math.random()*16)%16 | 0;
             d = Math.floor(d/16);
             return (c=='x' ? r : (r&0x3|0x8)).toString(16);
@@ -34,7 +34,7 @@ var AuthService = (function () {
          * @param uuid
          * @param callback
          */
-        isauthorized: function(username, uuid, callback) {
+        isauthorized: (username, uuid, callback) => {
 
            if ( username in sessionDB && (sessionuuid = sessionDB[username])) {
                    callback(true);
@@ -50,7 +50,7 @@ var AuthService = (function () {
          * @param password
          * @param callback
          */
-        authenticate: function(username,password,callback) {
+        authenticate: (username,password,callback) => {
 
             if ( username in passwordDB)  {
                 var passwordhash = passwordDB[username];
@@ -76,7 +76,7 @@ var AuthService = (function () {
          * @param password
          * @param callback
          */
-        register: function(username,password,callback) {
+        register: (username,password,callback) => {
             if ( !(username in passwordDB)) {
                 passwordDB[username] = bcrypt.hashSync(password);
                 bus.emitMessage('register', { "username" : username })
@@ -89,7 +89,7 @@ var AuthService = (function () {
          * @param uuid
          * @param callback
          */
-        invalidate: function(username,uuid,callback)  {
+        invalidate: (username,uuid,callback)  => {
             if ( username in sessionDB) {
                 delete passwordDB[username];
                 bus.emitMessage('invalidate', { "username" : username})

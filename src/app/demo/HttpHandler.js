@@ -9,30 +9,30 @@ var url = require("url"),
  *
  * @type {{view, delete, modify, create, save, display, authenticate, register, invalidate}}
  */
-var HttpHandler = (function () {
+var HttpHandler = ( ()=>  {
 
 
     return {
-        view: function( request, response ) {
+        view: ( request, response ) => {
             dataservice.view(request,response);
         },
-        delete: function( request, response ) {
+        delete: ( request, response ) => {
             dataservice.delete(request,response);
         },
-        modify: function( request, response ) {
+        modify: ( request, response ) => {
             dataservice.modify(request,response);
         },
-        create: function( request, response ) {
+        create: ( request, response ) => {
             dataservice.create(request,response);
         },
-        save: function( request, response ) {
+        save: ( request, response ) => {
             dataservice.save(request,response);
         },
-        display: function( request, response ) {
+        display: ( request, response ) => {
             dataservice.display(request,response);
         },
 
-        authenticate: function( request,response ) {
+        authenticate: ( request,response ) =>  {
             httpprocessor.getParameterMap(request, function (pmap) {
                 var username = pmap.username;
                 var password = pmap.password;
@@ -54,7 +54,7 @@ var HttpHandler = (function () {
                 }
             })
         },
-        register: function( request,response ) {
+        register: ( request,response ) =>  {
             httpprocessor.getParameterMap(request, function (pmap) {
                 var username = pmap.username;
                 var password = pmap.password;
@@ -74,7 +74,7 @@ var HttpHandler = (function () {
                 }
             })
         },
-        invalidate: function( request,response ) {
+        invalidate: ( request,response ) => {
             httpprocessor.getParameterMap(request, function (pmap) {
                 var username = pmap.username;
                 var uuid = pmap.uuid;

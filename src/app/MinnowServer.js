@@ -9,13 +9,13 @@ var http = require("http"),
  *
  * @type {{start}}
  */
-var MinnowServer = (function () {
+var MinnowServer = ( () => {
 
     /**
      *
      * @param response
      */
-    var send404 = function(response) {
+    var send404 = (response) => {
         var pathname = config.notfound;
         var ext = path.extname(pathname);
         var content = fs.readFileSync(config.webroot + pathname);
@@ -29,7 +29,7 @@ var MinnowServer = (function () {
      * @param request
      * @param response
      */
-    var staticHandler = function (request, response) {
+    var staticHandler = (request, response) => {
 
         try {
             var pathname = url.parse(request.url).pathname;
@@ -53,7 +53,7 @@ var MinnowServer = (function () {
          * @param handler
          * @param channels
          */
-        start: function (webport, route, handler, channels) {
+        start:  (webport, route, handler, channels) => {
             function onRequest(request, response) {
                 var pathname = url.parse(request.url).pathname;
                 var ext = path.extname(pathname);

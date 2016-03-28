@@ -2,10 +2,10 @@
  *
  * @type {{session, data}}
  */
-var EventHandler = (function () {
+var EventHandler = (() =>  {
 
     return {
-        session: function (websocket) {
+        session: (websocket) => {
             websocket.on('session-start', function (data) {
                 console.log('session starting do something');
             })
@@ -15,7 +15,7 @@ var EventHandler = (function () {
             })
         },
 
-        data: function (websocket) {
+        data:  (websocket) => {
             websocket.on('data', function (data) {
                 console.log('data received do something');
                 websocket.emit('message', data);
