@@ -1,3 +1,5 @@
+'use strict';
+
 var httpHandler = require('./demo/HttpHandler');
 var eventHandler = require('./demo/EventHandler');
 var requestRouter = require('./RequestRouter');
