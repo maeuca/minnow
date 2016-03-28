@@ -1,5 +1,9 @@
 'use strict';
-
+try{
+    require('look').start();//http://[yourhost]:5959
+}catch(e){
+    console.log('performance monitor failed to start');
+}
 var httpHandler = require('./demo/HttpHandler');
 var eventHandler = require('./demo/EventHandler');
 var requestRouter = require('./RequestRouter');
