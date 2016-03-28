@@ -1,3 +1,5 @@
+"use strict";
+
 var http = require("http"),
     io = require('socket.io'),
     path = require("path"),
@@ -58,7 +60,14 @@ var MinnowServer = ( () => {
                 var pathname = url.parse(request.url).pathname;
                 var ext = path.extname(pathname);
                 if (ext == null || ext === undefined || ext.length == 0) {
-                    route(handler, pathname, request, response);
+                    try{
+                        route(handler, pathname, request, response);
+                    }catch(err)
+                    {
+                        console.log(err.message);
+                        send404(response);
+                    }
+
                 }
                 else {
                     console.log(' this is a static route ' + pathname);

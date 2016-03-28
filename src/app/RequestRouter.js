@@ -12,7 +12,7 @@ var RequestRouter = (function () {
                 return handle[pathname](request,response);
             }
             else {
-                console.log('Unsupported Request');
+                throw {name: "RequestRouterError", message: 'Route not supported'};
             }
         }
     }
