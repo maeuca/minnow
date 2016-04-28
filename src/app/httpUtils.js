@@ -4,18 +4,19 @@ let url = require('url'),
     querystring = require('querystring');
 
 module.exports.getParameterMap = function (request, callback) {
-    let parameterMap = {};
+    let parameterMap = {},
+        postData = [];
     if ( request.method == 'POST')  {
-        let postData = '';
+
         request.setEncoding('utf8');
         request.addListener('data', function (postDataChunk) {
-            postData += postDataChunk;
+            postData.push(new Buffer(postDataChunk,'utf8'));
         });
         request.addListener('end', function () {
-            for ( let key in querystring.parse(postData) ) {
-                parameterMap[key] = querystring.parse(postData)[key];
+            let postBody = Buffer.concat(postData).toString();
+            for ( let key in querystring.parse(postBody) ) {
+                parameterMap[key] = querystring.parse(postBody)[key];
             }
-
             callback(parameterMap);
         });
     } else if ( request.method == 'GET')  {
