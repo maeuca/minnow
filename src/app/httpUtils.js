@@ -10,7 +10,7 @@ module.exports.getParameterMap = function (request, callback) {
 
         request.setEncoding('utf8');
         request.addListener('data', function (postDataChunk) {
-            postData.push(new Buffer(postDataChunk,'utf8'));
+            postData.push(new Buffer(postDataChunk, 'utf8'));
         });
         request.addListener('end', function () {
             let postBody = Buffer.concat(postData).toString();
