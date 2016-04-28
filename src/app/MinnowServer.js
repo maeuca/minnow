@@ -1,6 +1,6 @@
 'use strict';
 
-let http = require('http'),
+var http = require('http'),
     io = require('socket.io'),
     path = require('path'),
     fs = require('fs'),
