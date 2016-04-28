@@ -5,7 +5,6 @@ A Framework-less rest service
 ## Core Files
 ```js
 main.js - main script with handler definitions
-config.js - application settings
 HttpProcessor - get/post data
 RequestRouter - add routes
 MinnowServer - handles static requests; delegates to RequestRouter
