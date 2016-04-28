@@ -1,32 +1,28 @@
 'use strict';
 
-var fs = require("fs"),
-    bcrypt = require('bcrypt-nodejs'),
-    querystring = require("querystring");
+var bcrypt = require('bcrypt-nodejs');
+
 
 /**
  *
  * @type {{isauthorized, authenticate, register, invalidate}}
  */
-var AuthService = ( () =>  {
+var AuthService = ( function()  {
 
-
-    var passwordDB = {};
-    var sessionDB  = {};
-
+    var passwordDB = {},
+        sessionDB  = {};
     /**
      *
      * @returns {string}
      */
-    var getUuid = () => {
+    var getUuid = function ()  {
         var d = new Date().getTime();
 
-        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-            var r = (d + Math.random()*16)%16 | 0;
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c){
+            var r = (d + Math.random() * 16) % 16 | 0;
             d = Math.floor(d/16);
-            return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
         });
-        return uuid;
     }
 
     return {
@@ -36,14 +32,13 @@ var AuthService = ( () =>  {
          * @param uuid
          * @param callback
          */
-        isauthorized: (username, uuid, callback) => {
+        isauthorized: function (username, uuid, callback) {
 
-           if ( username in sessionDB && (sessionuuid = sessionDB[username])) {
-                   callback(true);
-           }
-           else{
-               callback(false);
-           }
+            if ( username in sessionDB && (uuid = sessionDB[username])) {
+                callback(true);
+            } else {
+                callback(false);
+            }
 
         },
         /**
@@ -55,8 +50,7 @@ var AuthService = ( () =>  {
         authenticate: (username,password,callback) => {
 
             if ( username in passwordDB)  {
-                var passwordhash = passwordDB[username];
-                if ( bcrypt.compareSync(password, passwordhash)  ) {
+                if ( bcrypt.compareSync(password, passwordDB[username])  ) {
 
                     var uuid = getUuid();
                     sessionDB[username] = uuid;

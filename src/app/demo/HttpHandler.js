@@ -3,6 +3,7 @@ var url = require("url"),
     path = require("path"),
     fs = require('fs'),
     authservice = require('./AuthService'),
+    httputils = require('../httpUtils'),
     dataservice = require('./DataService');
 
 /**
@@ -33,7 +34,7 @@ var HttpHandler = ( ()=>  {
         },
 
         authenticate: ( request,response ) =>  {
-            httpprocessor.getParameterMap(request, function (pmap) {
+            httputils.getParameterMap(request, function (pmap) {
                 var username = pmap.username;
                 var password = pmap.password;
                 if (username===undefined || password===undefined ||
@@ -55,7 +56,7 @@ var HttpHandler = ( ()=>  {
             })
         },
         register: ( request,response ) =>  {
-            httpprocessor.getParameterMap(request, function (pmap) {
+            httputils.getParameterMap(request, function (pmap) {
                 var username = pmap.username;
                 var password = pmap.password;
                 if (username===undefined || password===undefined ||
@@ -75,7 +76,7 @@ var HttpHandler = ( ()=>  {
             })
         },
         invalidate: ( request,response ) => {
-            httpprocessor.getParameterMap(request, function (pmap) {
+            httputils.getParameterMap(request, function (pmap) {
                 var username = pmap.username;
                 var uuid = pmap.uuid;
                 if (username===undefined || uuid===undefined ||

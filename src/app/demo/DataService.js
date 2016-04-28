@@ -2,6 +2,7 @@
 
 var fs = require("fs"),
     url = require("url"),
+    httputils = require('../httpUtils'),
     querystring = require("querystring");
 
 var navbarhtml = '[<a href=/create>Create</a>] &nbsp; [<a href=/display>Display</a>]</hr>';
@@ -198,7 +199,7 @@ var DataService = (() => {
     }
     return {
         save: (request, response) => {
-            httpprocessor.getParameterMap(request, (pmap)=>  {
+            httputils.getParameterMap(request, (pmap)=>  {
                 console.log('ConfigService save start');
 
 
@@ -222,7 +223,7 @@ var DataService = (() => {
 
         },
         delete: (request, response) => {
-            httpprocessor.getParameterMap(request,  (pmap) => {
+            httputils.getParameterMap(request,  (pmap) => {
                 response.writeHead(200, {"Content-Type": "text/html"});
                 console.log('delete ' + pmap.host);
                 var config = getConfig(pmap.host, (config) => {
@@ -249,7 +250,7 @@ var DataService = (() => {
             response.end();
         },
         view: (request, response) => {
-            httpprocessor.getParameterMap(request, (pmap) => {
+            httputils.getParameterMap(request, (pmap) => {
                 response.writeHead(200, {"Content-Type": "text/html"});
                 var config = getConfig(pmap.host,(config) => {
                     var formhtml = 'Modify -- ' + pmap.host + '<hr><form action="/modify" method="post">';
@@ -268,7 +269,7 @@ var DataService = (() => {
 
         },
         modify: (request, response) => {
-            httpprocessor.getParameterMap(request, (pmap) =>  {
+            httputils.getParameterMap(request, (pmap) =>  {
                 console.log(JSON.stringify(pmap));
                 var configdata = {};
                 configdata.username = pmap.username;
@@ -287,7 +288,7 @@ var DataService = (() => {
 
         },
         display: (request, response) =>  {
-            httpprocessor.getParameterMap(request, (pmap) => {
+            httputils.getParameterMap(request, (pmap) => {
                 console.log('pmap=' + JSON.stringify(pmap));
 
                 var sortby = pmap.sort;// name, hostname, port, username
