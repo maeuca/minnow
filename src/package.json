@@ -3,21 +3,22 @@
   "version": "0.0.0",
   "repository": {
     "type": "git",
-    "url" : "https://github.com/maeuca/minnow.git"
+    "url": "https://github.com/maeuca/minnow.git"
   },
   "description": "A Functional Rest and Websocket Server using minimal dependencies",
   "main": "main.js",
   "dependencies": {
-    "socket.io": "1.4.5",
+    "look": "0.1.3 ",
     "mime-types": "2.1.10",
-    "look": "0.1.3 "
+    "socket.io": "1.4.5",
+    "winston": "^2.2.0"
   },
   "engines": {
     "node": "5.8.0"
   },
   "scripts": {
     "start": "node app/main.js",
-    "test" : "eslint ./app"
+    "test": "eslint ./app"
   },
   "author": "Mark Cantrell",
   "license": "Artistic-2.0"
