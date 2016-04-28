@@ -8,6 +8,7 @@ main.js - main script with handler definitions
 RequestRouter - add routes
 MinnowServer - handles static requests; delegates to RequestRouter
 MessageBus - an event emitter
+httpUtils - methods for post/get 
 ```
 ## Demo
 The purpose of these files and directories is for demonstration only.  These should be replaced with your own implementation.
