@@ -1,7 +1,6 @@
 ﻿'use strict';
 
-var events = require('events'),
-    util = require('util');
+var events = require('events');
 
 
 /**
@@ -9,13 +8,13 @@ var events = require('events'),
  *
  * @constructor
  */
-class MessageBus extends events.EventEmitter{
+class MessageBus extends events.EventEmitter {
 
 
-    emitMessage (eventName, eventData) {
+    emitMessage(eventName, eventData) {
         eventData.eventName = eventName;
-        this.emit( [eventName],eventData );
+        this.emit( [eventName], eventData );
     }
-};
+}
 
-module.exports = { newInstance:MessageBus }
+module.exports = {newInstance: MessageBus};
