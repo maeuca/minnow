@@ -37,8 +37,8 @@ var HttpHandler = ( ()=>  {
             httputils.getParameterMap(request, function (pmap) {
                 var username = pmap.username;
                 var password = pmap.password;
-                if (username===undefined || password===undefined ||
-                    username.length<3 || password.length < 3)  {
+                if (username === undefined || password === undefined ||
+                    username.length < 3 || password.length < 3)  {
                     response.write('Invalid username or password detected');
                     response.end();
                 }
@@ -59,7 +59,7 @@ var HttpHandler = ( ()=>  {
             httputils.getParameterMap(request, function (pmap) {
                 var username = pmap.username;
                 var password = pmap.password;
-                if (username===undefined || password===undefined ||
+                if (username === undefined || password === undefined ||
                     username.length<3 || password.length < 3)  {
                     // We normally do a lot more to validate the input
                     // but this is a time sensitive exercise for an interview
@@ -79,7 +79,7 @@ var HttpHandler = ( ()=>  {
             httputils.getParameterMap(request, function (pmap) {
                 var username = pmap.username;
                 var uuid = pmap.uuid;
-                if (username===undefined || uuid===undefined ||
+                if (username === undefined || uuid === undefined ||
                     username.length<3 || uuid.length < 3)  {
                     // We normally do a lot more to validate the input
                     // but this is a time sensitive exercise for an interview
