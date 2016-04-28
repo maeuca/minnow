@@ -5,13 +5,16 @@ try {
     console.log('performance monitor failed to start');
 }
 
-var httpHandler = require('./demo/HttpHandler'),
+var log = require('winston'),
+    httpHandler = require('./demo/HttpHandler'),
     eventHandler = require('./demo/EventHandler'),
     requestRouter = require('./RequestRouter'),
     MinnowServer = require('./MinnowServer'),
     mb = require('./MessageBus'),
     handlers = {},
     channels = {};
+
+log.add(log.transports.File, {filename: 'minnow.log'});
 
 GLOBAL.bus = new mb.newInstance();
 
