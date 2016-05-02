@@ -52,7 +52,7 @@ var DataService = (() => {
      * @param callback
      */
     var getConfig = (configname, callback) => {
-        fs.readFile("../etc/configurations", (err, data) => {
+        fs.readFile("etc/configurations", (err, data) => {
 
             if (data === undefined) {
                 callback(null);
@@ -86,7 +86,7 @@ var DataService = (() => {
      * @param callback
      */
     var updateConfig = (configdata, callback) => {
-        fs.readFile("../etc/configurations", (err, data) => {
+        fs.readFile("etc/configurations", (err, data) => {
 
             if (data === undefined) {
                 callback(null);
@@ -132,7 +132,7 @@ var DataService = (() => {
      * @param callback
      */
     var deleteConfig = (configdata, callback) => {
-        fs.readFile("../etc/configurations",  (err, data) => {
+        fs.readFile("etc/configurations",  (err, data) => {
 
             if (data === undefined) {
                 callback(null);
@@ -177,7 +177,7 @@ var DataService = (() => {
      * @param callback
      */
     var loadConfigs = (callback) => {
-        fs.readFile("../etc/configurations", (err, data) => {
+        fs.readFile("etc/configurations", (err, data) => {
 
             if (data === undefined) {
                 callback(null);
